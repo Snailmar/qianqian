@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商家详情</title>
+    <link rel="stylesheet" href="./src/css/global.css">
+    <link rel="stylesheet" href="./src/font_qianqian/iconfont.css">
+    <script src="./src/js/zipto.js"></script>
+    <script src="./src/js/rem.js"></script>
+    <link rel="stylesheet" href="./src/css/swiper.min.css">
+    <script src='./src/js/swiper.min.js'></script>
+</head>
+
+<body>
+    <div class="shop_detail_top">
+        <div class="sdt_info">
+            <p>
+                <img src="./src/images/shop_icon.png" alt="" class='shop_icon'> <strong class='sdt_info_shopname'>靓车会靓车会汕头店</strong><span
+                    class='sdt_info_status'><i class='sdt_info_indicator'></i>
+                    <span>营业中</span> </span>
+            </p>
+            <div class='sdt_heart'>
+                <i class='icon iconfont icon-heart heart_left'></i>
+                <i class='icon iconfont icon-heart1 heart_right'></i>
+            </div>
+        </div>
+        <div class="sdt_score">
+            <p class='sdt_shop_score'>
+                <strong class='star'>
+                    <i class="icon iconfont icon-star1"></i>
+                    <i class="icon iconfont icon-star1"></i>
+                    <i class="icon iconfont icon-star1"></i>
+                    <i class="icon iconfont icon-star1"></i>
+                    <i class="icon iconfont icon-star"></i>
+                </strong>
+                <span class='score'>4.7</span>
+            </p>
+            <span class="comments_num">199条评价</span>
+        </div>
+        <div class="sdt_swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="./src/images/index_content_1.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./src/images/index_content_2.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./src/images/index_content_3.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./src/images/index_content_4.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="sdt_location">
+            <i class="icon iconfont icon-dingwei dingwei_icon"></i>
+            <p class='sdt_address'>
+                <strong class='sdt_location_detail'>汕头市金平区金砂东路142号</strong>
+                <span class='sdt_distance'>距您1.2KM</span>
+            </p>
+            <div class="sdt_navigationBt">
+                <i class='icon iconfont icon-daohang daohang_icon'></i>
+                <span>导航</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="sd_product">
+        ul>li*2>a[href='#']>img[src='./src/images/sd_product_1.png']+div.sd_product_details>strong{商品名商品名商品名商品名}+span{}
+
+    </div>
+
+</body>
+<script>
+    $(function () {
+        var swiper = new Swiper('.sdt_swiper', {
+            slidesPerView: 3,
+            spaceBetween: 14
+        });
+    })
+</script>
+
+</html>

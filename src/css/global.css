@@ -1,0 +1,402 @@
+html,
+body,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+img,
+input,
+figure,
+figcaption {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+
+
+ul,
+li {
+    list-style: none;
+}
+
+b,
+strong {
+    font-weight: normal;
+}
+
+em,
+i {
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+    
+}
+
+img {
+    border: 0;
+    display: inline-block;
+    vertical-align: top;
+}
+
+input {
+    outline: none;
+    border: none;
+}
+
+html {
+	-webkit-text-size-adjust:none;
+    font-family:PingFangSC-Regular;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.gradient-text {
+    /*文字渐变*/
+    display: block;
+    background:-webkit-linear-gradient(180deg,rgba(215,171,114,1) 0%,rgba(164,110,80,1) 100%);
+box-shadow:0px 20px 15px 0px rgba(0,0,0,0.15);
+    background:linear-gradient(180deg,rgba(215,171,114,1) ,rgba(164,110,80,1));
+box-shadow:0px 20px 15px 0px rgba(0,0,0,0.15);-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradientBg {
+    /*背景渐变*/
+    background:rgba(208, 165, 104, 1) -webkit-linear-gradient(45deg, rgba(215,171,114,0.95), rgba(164,110,80,0.7));
+    background: rgba(208, 165, 104, 1) linear-gradient(45deg, rgba(215,171,114,0.95), rgba(164,110,80,0.7))
+}
+
+
+.top_nav {
+    height: 5.5rem;
+    width: 100%;
+    padding: 0.36rem 0.28rem 0;
+}
+
+.top_search {
+    height: 0.72rem;
+    line-height: 0.72rem;
+    display: flex;
+    margin-bottom: 0.36rem;
+    margin-left: 0.02rem;
+    
+}
+
+.loaction {
+    color: #fff;
+    font-size: 0.32rem;
+    margin-right: 0.22rem;
+}
+
+.loaction > i{
+   font-size: 0.32rem;
+}
+.search {
+    flex: 1;
+    background: #fff;
+    padding: 0 0.27rem;
+    border-radius: 5px;
+    display: flex;
+    font-size: 0;
+}
+.search>i{
+    font-size: 0.28rem;
+    color: #929292;
+}
+.inputSearch {
+    height: 100%;
+    flex: 1;
+    background: transparent;
+    font-size: 0.28rem;
+    margin-left: 0.24rem;
+}
+.inputSearch::-webkit-input-placeholder{
+    font-size: 0.28rem;
+    color: #929292;
+}
+
+
+.swiper-container {
+    height: 3rem;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+
+}
+.swiper-wrapper{
+width: 100%;
+height: 100%;
+
+}
+.swiper-slide {
+    width: 100%;
+    text-align: center;
+    /* Center slide text vertically */
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.swiper-slide img {
+    width: 100%;
+    height: 3rem;
+}
+.swiper-pagination-bullet{
+    background: #fff !important;
+    opacity: 1!important;
+
+}
+.swiper-pagination-bullet-active {
+    background: #b9875c !important;
+}
+
+
+
+.top_nav_menu {
+   margin-top: 0.35rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.top_nav_menu a {
+    font-size: 0.28rem;
+    display: inline-block;
+    width: 23%;
+    color: rgba(255, 255, 255, 0.7)
+}
+.top_nav_menu a.active{
+    color: #fff;
+}
+
+
+.content{
+    width: 100%;
+    background: #202020;
+    padding: 0.36rem 0.28rem 0.98rem;
+}
+.content_wrap a{
+    display: inline-block;
+    border-radius: 5px;
+    height: 4.2rem;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    color: #fff;
+    font-size: 0.28rem;
+}
+.content_wrap img{
+    width: 100%;
+}
+.content_wrap li{
+margin-bottom: 0.36rem;
+}
+.shop_info{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 0.65rem;
+    line-height: 0.65rem;
+    padding-left: 0.34rem;
+    padding-right:0.4rem; 
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: space-between;
+    
+}
+.shop_score{
+line-height: 0.65rem;
+color: #F97D15;
+}
+.tabbar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.98rem;
+    
+    background:rgba(34,34,34,1) linear-gradient(360deg,rgba(238,238,238,0),rgba(238,238,238,0.1) );
+    background:rgba(34,34,34,1) -webkit-linear-gradient(360deg,rgba(238,238,238,0),rgba(238,238,238,0.1) );
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 0.28rem;
+font-size: 0.24rem;
+color: #666;
+}
+.tabbar>a{
+    flex: 1;
+    height: 100%;
+    text-align: center;
+}
+.tabbar span{
+   display: block;
+}
+.tabbar i{
+    font-size: 0.32rem;
+}
+
+/* shop_detail */
+.shop_detail_top{
+    padding: 0.28rem;
+    background: #fff;
+}
+.sdt_info{
+    font-size: 0.32rem;
+    line-height: 0.45rem;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 0.06rem;
+    margin-bottom: 0.14rem;
+}
+.shop_icon{
+    height: 0.32rem;
+    width: 0.36rem;
+    vertical-align: middle;
+}
+.sdt_info_shopname{
+    color: #333;
+    margin-left: 0.16rem;
+    margin-right: 0.07rem;
+    vertical-align: middle;
+}
+.sdt_info_indicator{
+    display: inline-block;
+    margin-right: 0.07rem;
+vertical-align: middle;
+    height: 0.12rem;
+    width: 0.12rem;
+    border-radius: 0.12rem;
+    background: #2DF327;
+}
+.sdt_info_status{
+    color: #929292;
+    font-size: 0;
+    vertical-align: middle;
+}
+.sdt_info_status>span{
+    font-size: 0.20rem;
+    line-height: 0.28rem;
+    vertical-align: middle;
+    
+}
+.sdt_heart{
+    font-size: 0;
+    vertical-align: middle;
+}
+.heart_left{
+    font-size: 0.32rem;
+    color: #F97D15;
+    margin-right: 0.27rem;
+    vertical-align: middle;
+    position: relative;
+    top: 0.05rem;
+}
+.heart_right{
+    font-size: 0.32rem;
+    vertical-align: middle;
+
+    color: #333333;
+    position: relative;
+    top: 0.05rem;
+}
+.sdt_score{
+    font-size: 0.32rem;
+    line-height: 0.38rem;
+    margin-bottom: 0.20rem;
+}
+
+.sdt_shop_score{
+    display: inline-block;
+    color: #F97D15;
+    margin-right: 0.28rem;
+}
+.sdt_shop_score i{
+    float: left;
+    margin-right: 0.12rem;
+}
+.sdt_score .comments_num{
+    color: #929292;
+    font-size: 0.24rem;
+    line-height: 0.33rem;
+}
+
+.sdt_swiper .swiper-slide{
+    height: 1.57rem !important;
+    width: 2.6rem !important;
+    overflow: hidden;
+}
+.sdt_swiper img{
+   width: 100%;
+   height: 100%;
+  
+}
+
+.sdt_location{
+    margin-top: 0.28rem;
+    border-top: #D8D8D8 solid 1px;
+    font-size: 0.28rem;
+    padding-top: 0.28rem;
+    position: relative;
+}
+
+.dingwei_icon{
+    color: #606060;
+    margin-right: 0.05rem;
+    vertical-align: top;
+    position: relative;
+    top: -0.05rem;
+}
+.sdt_address{
+    display: inline-block;
+    vertical-align: top;
+}
+.sdt_location_detail{
+    color: #333;
+    line-height: 0.4rem;
+    margin-bottom: 0.04rem;
+}
+.sdt_distance{
+    display: block;
+    font-size: 0.24rem;
+    line-height: 0.33rem;
+    color: #929292;
+}
+.sdt_navigationBt{
+    position: absolute;
+    right: 0;
+    top: 0.33rem;
+    width: 1.44rem;
+    height: 0.66rem;
+    line-height: 0.66rem;
+    border-radius: 0.32rem;
+    background: rgba(208,165,104,1) -webkit-linear-gradient(45deg,rgba(215,171,114,0.95) ,rgba(164,110,80,0.7) );
+    background: rgba(208,165,104,1) linear-gradient(45deg,rgba(215,171,114,0.95) ,rgba(164,110,80,0.7) );
+    box-shadow:0px 3px 5px 0px rgba(107,71,38,0.33);
+    text-align: center;
+    color: #fff;
+}
