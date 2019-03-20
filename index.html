@@ -12,123 +12,128 @@
     <script src="./src/js/rem.js"></script>
     <link rel="stylesheet" href="./src/css/swiper.min.css">
     <script src='./src/js/swiper.min.js'></script>
-
+    <script src="https://cdn.bootcss.com/iScroll/5.2.0/iscroll.min.js"></script>
 </head>
 
 <body>
-       
 
-    <div class='top_nav gradientBg'>
-        <div class="top_search">
-            <div class="loaction">
-                <span>汕头</span>
-                <i class='icon iconfont icon-icon_down_arrow'></i>
+    <div id="wrapper">
+        <div id="wrapper_content">
+
+            <div class='top_nav gradientBg'>
+                <div class="top_search">
+                    <div class="loaction">
+                        <span>汕头</span>
+                        <i class='icon iconfont icon-icon_down_arrow'></i>
+                    </div>
+                    <div class="search">
+                        <i class='icon iconfont icon-search'></i>
+                        <input type="search" placeholder="搜索最近的洗车店" class='inputSearch'>
+                    </div>
+                </div>
+
+
+                <div class="swiper-container ">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><a href="#"><img src="./src/images/index_top_swiper.png"></a></div>
+                        <div class="swiper-slide"><a href="#"><img src="./src/images/top_nav_slider.png"></a></div>
+                        <div class="swiper-slide"><a href="#"><img src="./src/images/top_nav_slider.png"></a></div>
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+                </div>
+
+
+                <div class="top_nav_menu">
+                    <a href='#' class='active'>距离最近</a>
+                    <a href='#'>价格最优</a>
+                    <a href='#'>评分最高</a>
+                    <a href='#'>我的收藏</a>
+                </div>
             </div>
-            <div class="search">
-                <i class='icon iconfont icon-search'></i>
-                <input type="search" placeholder="搜索最近的洗车店" class='inputSearch'>
+            <div class="content">
+                <ul class='content_wrap'>
+                    <li>
+                        <a href="#">
+                            <img src="./src/images/index_content_1.png" alt="">
+                            <div class='shop_info'><span class='shop_name'>靓车会靓车会汕头店</span>
+                                <p class='shop_score'>
+                                    <strong class='star'>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star"></i>
+                                    </strong>
+                                    <span class='score'>4.7</span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./src/images/index_content_2.png" alt="">
+                            <div class='shop_info'>
+                                <span class='shop_name'>靓车会靓车会汕头店</span>
+                                <p class='shop_score'>
+                                    <strong class='star'>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star"></i>
+                                    </strong>
+                                    <span class='score'>4.7</span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./src/images/index_content_3.png" alt="">
+                            <div class='shop_info'><span class='shop_name'>靓车会靓车会汕头店</span>
+                                <p class='shop_score'>
+                                    <strong class='star'>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star"></i>
+                                    </strong>
+                                    <span class='score'>4.7</span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./src/images/index_content_4.png" alt="">
+                            <div class='shop_info'><span class='shop_name'>靓车会靓车会汕头店</span>
+                                <p class='shop_score'>
+                                    <strong class='star'>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star1"></i>
+                                        <i class="icon iconfont icon-star"></i>
+                                    </strong>
+                                    <span class='score'>4.7</span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div>
-
-
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><a href="#"><img src="./src/images/top_nav_slider.png"></a></div>
-                <div class="swiper-slide"><a href="#"><img src="./src/images/top_nav_slider.png"></a></div>
-                <div class="swiper-slide"><a href="#"><img src="./src/images/top_nav_slider.png"></a></div>
+            <div class="pulluptorefresh">
+                上拉刷新
             </div>
-
-            <div class="swiper-pagination"></div>
-        </div>
-
-
-        <div class="top_nav_menu">
-            <a href='#' class='active'>距离最近</a>
-            <a href='#'>价格最优</a>
-            <a href='#'>评分最高</a>
-            <a href='#'>我的收藏</a>
         </div>
     </div>
-    <div class="content">
-        <ul class='content_wrap'>
-            <li>
-                <a href="#">
-                    <img src="./src/images/index_content_1.png" alt="">
-                    <div class='shop_info'><span class='shop_name'>靓车会靓车会汕头店</span>
-                        <p class='shop_score'>
-                            <strong class='star'>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star"></i>
-                            </strong>
-                            <span class='score'>4.7</span>
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="./src/images/index_content_2.png" alt="">
-                    <div class='shop_info'>
-                        <span class='shop_name'>靓车会靓车会汕头店</span>
-                        <p class='shop_score'>
-                            <strong class='star'>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star"></i>
-                            </strong>
-                            <span class='score'>4.7</span>
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="./src/images/index_content_3.png" alt="">
-                    <div class='shop_info'><span class='shop_name'>靓车会靓车会汕头店</span>
-                        <p class='shop_score'>
-                            <strong class='star'>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star"></i>
-                            </strong>
-                            <span class='score'>4.7</span>
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="./src/images/index_content_4.png" alt="">
-                    <div class='shop_info'><span class='shop_name'>靓车会靓车会汕头店</span>
-                        <p class='shop_score'>
-                            <strong class='star'>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star1"></i>
-                                <i class="icon iconfont icon-star"></i>
-                            </strong>
-                            <span class='score'>4.7</span>
-                        </p>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-
     <div class="tabbar">
         <a class='gradient-text'>
-                <i class="icon iconfont icon-xiche-cuxiantiao "></i>
-            
-            <span class=''>洗车</span>
-        
+            <i class="icon iconfont icon-xiche-cuxiantiao "></i>
+            <span >洗车</span>
+
         </a>
 
         <a>
@@ -147,7 +152,9 @@
 </html>
 
 <script>
+    var myScroll;
     $(function () {
+
         var swiper = new Swiper('.swiper-container', {
             pagination: {
                 el: '.swiper-pagination',
@@ -157,15 +164,25 @@
             $(e.target).addClass('active').siblings().removeClass('active');
 
         });
-        $('.tabbar').click(function (e) {
-            var target=e.target;
-            if(target.tagName=='A'){
-                $(target).addClass('gradient-text').siblings().removeClass('gradient-text');
-            }
-            if(target.tagName=='I'||target.tagName=='SPAN'){
-               $(target).parent().addClass('gradient-text').siblings().removeClass('gradient-text'); 
-            }
-            
+        $('.tabbar a').click(function (e) {
+            var target=e.currentTarget;
+            $(target).addClass('gradient-text').siblings().removeClass('gradient-text')
+
         })
+
+
+        // iscroll
+$('#wrapper').on('touchmove',function (e) {
+    e.preventDefault();
+})//阻止浏览器默认事件
+
+    myScroll = new IScroll('#wrapper', {
+            
+           
+        });
+console.dir(myScroll);
+         
+
+
     })
 </script>

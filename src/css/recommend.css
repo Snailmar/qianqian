@@ -1,12 +1,14 @@
 .r_top_img{
     height: 5.16rem;
     width: 100%;
+    
 }
 .r_top_img img{
     width: 100%;
     height: 100%;
 }
 .r_title{
+    
     width: 100%;
     padding-top: 0.2rem;
     line-height: 0.45rem;
@@ -42,10 +44,215 @@ background:linear-gradient(45deg, rgba(215,171,114,0.95) , rgba(164,110,80,0.7) 
 }
 
 .r_rank{
-    padding: 0.28rem 0.4rem 1rem 0.28rem;
+    padding: 0rem 0.28rem 1rem 0.28rem;
+    margin-top: 0.25rem;
     position: absolute;
     top: 0.76rem;
+    width: 100%;
+
 }
 .r_rank img{
+    width: 1.32rem;
+    height: 1.32rem;
+}
+.r_rank_list a{
+    display: block;
+}
+.r_rank_list li:nth-child(n+4) a{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.rank_name{
+font-size: 0.28rem;
+color: #333;
+}
+.rank_score{
+    font-size: 0.32rem;
+    font-family:SFProDisplay-Medium;
+    line-height: 0.38rem;
+    color: #F97D15;
+
+}
+.r_rank_list li:nth-child(n+4) .rank_score{
+    margin-left: auto;
+    margin-right: 0.12rem;
+}
+
+.r_rank_list li:nth-child(n+4) .rank_num{
+color: #333;
+margin-right: 0.12rem;
+}
+.r_rank_list li:nth-child(n+4) .rank_name{
+    margin-left: 0.12rem;
+}
+.r_rank_list li:nth-child(1){
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+.r_rank_list li:nth-child(1) img{
+    width: 1.74rem;
+    height: 1.74rem;
+}
+.r_rank_list li:nth-child(1) .rank_num{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top:1.5rem;
+    display: block;
+    width:0.48rem;
+height:0.48rem;
+line-height: 0.47rem;
+text-align: center;
+background:linear-gradient(180deg,rgba(233,203,133,1) ,rgba(159,103,37,1) );
+border-radius: 50%;
+font-size:0.28rem;
+
+font-weight:bold;
+color: #040301;
+}
+.r_rank_list li:nth-child(1) .rank_name{
+    display: block;
+    margin-top: 0.33rem;
+    margin-bottom: 0.2rem;
+    color: #FFFFFF;
+
+
+}
+.r_rank_list li:nth-child(1) .rank_score,.r_rank_list li:nth-child(2) .rank_score,.r_rank_list li:nth-child(3) .rank_score
+{
+    display: block;
+
+}
+
+.r_rank_list li:nth-child(2),.r_rank_list li:nth-child(3){
+    margin-left: 0.31rem;
+    padding-top: 0.51rem;
+display: inline-block;
+position: relative;
+text-align: center;
+}
+.r_rank_list li:nth-child(2) .rank_num,.r_rank_list li:nth-child(3) .rank_num{
+    display: block;
+    width:0.36rem;
+height:0.36rem;
+line-height: 0.36rem;
+color: #040301;
+border-radius: 50%;
+text-align: center;
+background:linear-gradient(180deg,rgba(231,231,231,1) ,rgba(112,112,112,1) );
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+top:1.65rem;
+}
+.r_rank_list li:nth-child(2) .rank_name,.r_rank_list li:nth-child(3) .rank_name{
+    display: block;
+    margin-top: 0.3rem;
+    margin-bottom: 0.12rem;
+    color: #fff;
+}
+.r_rank_list li:nth-child(3){
+    position: absolute;
+    top: 0;
+    right: 0.31rem;
+}
+.r_rank_list li:nth-child(3) .rank_num{
+    background:linear-gradient(180deg,rgba(249,199,160,1) ,rgba(208,120,63,1) );
+}
+.r_rank_list li:nth-child(4){
+    margin-top: 1.62rem;
+}
+
+/* 商家优惠 */
+.r_discounts{
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 1.12rem;
+    left: 0;
+    padding: 0 0.28rem 1rem;
+   background: rgba(17,17,17,1) ;
     
 }
+.rd_list li{
+background: #fff;
+margin-bottom: 0.31rem;
+border-radius: 0.12rem;
+padding: 0.28rem;
+}
+.rd_top {
+display: flex;
+align-items: center;
+margin-bottom: 0.2rem;
+}
+.rd_top img{
+    width: 0.36rem;
+    height: 0.32rem;
+    margin-right: 0.16rem;
+}
+.rd_shopname{
+    color: #333;
+    font-weight: 600;
+    line-height: 0.45rem;
+}
+.rd_top .rd_location{
+    margin-left: auto;
+    color: #929292;
+    font-size: 0.24rem;
+}
+.rd_top .rd_location >i{
+font-size: 0.24rem;
+position: relative;
+top: 0;
+margin-right: 0.1rem;
+}
+.rd_content{
+    position: relative;
+}
+.rd_content img{
+width: 1.2rem;
+height: 1.2rem;
+border-radius: 5px;
+margin-right: 0.2rem;
+}
+.rdc_info{
+    display: inline-block;
+}
+.rdc_info>span{
+    display: block;
+    line-height: 0.4rem;
+    font-size: 0.28rem;
+    color: #333;
+    margin-bottom: 0.38rem;
+    
+}
+.rd_newprice{
+    font-size: 0.32rem;
+    color: #F97D15;
+    line-height: 0.45rem;
+    margin-right: 0.24rem;
+}
+.rd_oldprice{
+text-decoration: line-through;
+color: #929292;
+line-height: 0.33rem;
+font-size: 0.24rem;
+}
+.rd_buyBtn{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+width: 1.44rem;
+height: 0.66rem;
+border-radius: 0.32rem;
+text-align: center;
+line-height: 0.66rem;
+font-size: 0.28rem;
+color: #fff;
+background:rgba(208,165,104,1) linear-gradient(45deg,rgba(215,171,114,0.95) ,rgba(164,110,80,0.7) );
+}
+

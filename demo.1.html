@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://cdn.bootcss.com/iScroll/5.2.0/iscroll.min.js"></script>
+<script src="./src/js/zipto.js"></script>
+<style>
+    #outer{
+        position: relative;
+        width: 100%;
+    }
+    #inner{
+        position: absolute;
+    }
+</style>
+<script>
+    $(function () {
+        $('#outer').on('touchmove',(e)=>{
+            e.preventDefault();
+            
+        })
+        var myScroll=new IScroll('#outer',{
+            onScrollMove:function(){
+                console.log(111);
+            }
+        })
+    })
+    
+
+</script>
+</head>
+<body>
+<header>测试下拉刷新</header>
+<div id="outer">
+<div id="inner">
+<div id="pull-down">松手刷新............</div>
+<ul>
+<li>test1</li>
+<li>test2</li>
+<li>test3</li>
+<li>test4</li>
+<li>test5</li>
+<li>test6</li>
+<li>test7</li>
+<li>test8</li>
+<li>test9</li>
+<li>test10</li>
+<li>test11</li>
+<li>test12</li>
+<li>test13</li>
+<li>test14</li>
+<li>test15</li>
+<li>test16</li>
+<li>test17</li>
+<li>test18</li>
+<li>test19</li>
+<li>test20</li>
+<li>test21</li>
+<li>test22</li>
+<li>test23</li>
+<li>test24</li>
+<li>test25</li>
+<li>test26</li>
+<li>test27</li>
+<li>test28</li>
+<li>test29</li>
+<li>test30</li>
+<li>test31</li>
+<li>test32</li>
+<li>test33</li>
+<li>test34</li>
+<li>test35</li>
+<li>test36</li>
+<li>test37</li>
+<li>test38</li>
+<li>test39</li>
+<li>test40</li>
+<li>test41</li>
+</ul>
+</div>
+</div>
+<footer></footer>
+</body>
+</html>

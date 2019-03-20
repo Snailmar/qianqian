@@ -47,7 +47,7 @@
 
 
 .sd_content {
-    padding: 2.73rem 0.28rem 0.39rem;
+    padding: 2.73rem 0.28rem 1.39rem;
 
 }
 
@@ -143,12 +143,4 @@ justify-content: space-between;
 }
 .use_rules{
     padding-top: 0.39rem;
-}
-.sd_bottom{
-    height: 0.98rem;
-    line-height: 0.98rem;
-    color: #fff;
-    background:rgba(208,165,104,1) linear-gradient(45deg,rgba(215,171,114,0.95) ,rgba(164,110,80,0.7) );
-    font-size: 0.32rem;
-    text-align: center;
 }
