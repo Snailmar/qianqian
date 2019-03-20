@@ -400,3 +400,125 @@ vertical-align: middle;
     text-align: center;
     color: #fff;
 }
+.sd_product{
+    border-top: 0.2rem solid #f6f6f6;
+    padding: 0.28rem;
+}
+.sd_product a{
+    display: flex;
+
+}
+.sd_product img{
+    border-radius: 5px;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.24rem;
+}
+.sd_product_details strong{
+    display: block;
+    font-size: 0.28rem;
+    line-height: 0.4rem;
+    color: #333;
+margin-bottom: 0.06rem;
+}
+.sd_product_details> span{
+    display: block;
+font-size: 0.24rem;
+line-height: 0.33rem;
+color: #929292;
+margin-bottom: 0.06rem;
+}
+.sd_product_details .price .new_price{
+color: #F97D15;
+font-size: 0.32rem;
+line-height: 0.45rem;
+margin-right: 0.24rem;
+font-weight: 500;
+}
+.sd_product_details .price .old_price{
+    text-decoration: line-through;
+    color: #929292;
+    font-size: 0.24rem;
+    line-height: 0.33rem;
+}
+.sd_product li:not(:last-child){
+    margin-bottom: 0.26rem;
+}
+.sd_product .youjiantou{
+    align-self: center;
+    font-size: 0.28rem;
+    color:#929292;
+    margin-left: auto;
+}
+
+.sd_comments{
+    border-top: 0.2rem solid #f6f6f6;
+    padding: 0.28rem;
+}
+.sd_comments_title{
+    font-weight: 500;
+    font-size: 0.28rem;
+    line-height: 0.4rem;
+    color: #333;
+    font-family:PingFangSC-Medium;
+   
+}
+.sdc_list img{
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 50%;
+    margin-right: 0.24rem;
+    
+}
+.sdc_list li{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.28rem;
+    padding-top: 0.28rem;
+}
+.sdc_list li:not(:last-child){
+    border-bottom: #d8d8d8 1px solid;
+}
+.sdcl_detail{
+    flex: 1;
+    position: relative;
+}
+.sdcl_detail .name{
+    display: block;
+color: #CA9C68;
+font-size: 0.28rem;
+line-height: 0.4rem;
+margin-bottom: 0.04rem;
+}
+.sdcl_detail .date{
+    font-size: 0.2rem;
+    line-height: 0.28rem;
+    color: #929292;
+    margin-bottom: 0.2rem;
+}
+.sdcl_detail .score{
+position: absolute;
+right: 0;
+top: 0.36rem;
+font-size: 0.28rem;
+display: flex;
+}
+.sdcl_detail .score >span{
+color: #606060;
+margin-right: 0.12rem;
+}
+.sdcl_detail .score .star{
+    display: flex;
+    font-size: 0.24rem;
+    width: 1.68rem;
+    justify-content: space-between;
+    color: #F97D15;
+    position: relative;
+    top: -0.05rem;
+}
+.sdcl_detail .comments_detail{
+    font-size: 0.28rem;
+    color: #606060;
+    line-height: 0.4rem;
+    padding-top: 0.2rem;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>店铺详情2</title>
+    <link rel="stylesheet" href="./src/css/global.css">
+    <link rel="stylesheet" href="./src/font_qianqian/iconfont.css">
+    <link rel="stylesheet" href="./src/css/shopdetail2.css">
+
+    <script src="./src/js/zipto.js"></script>
+    <script src="./src/js/rem.js"></script>
+    <link rel="stylesheet" href="./src/css/swiper.min.css">
+    <script src='./src/js/swiper.min.js'></script>
+</head>
+
+<body>
+    <div class="sd_topImg">
+        <img src="./src/images/sd_top.png" alt="">
+    </div>
+
+    <div class="shop_detail_top">
+        <div class="sdt_info">
+            <p>
+                <img src="./src/images/shop_icon.png" alt="" class='shop_icon'> <strong class='sdt_info_shopname'>靓车会靓车会汕头店</strong><span
+                    class='sdt_info_status'><i class='sdt_info_indicator'></i>
+                    <span>营业中</span> </span>
+            </p>
+            <div class='sdt_heart'>
+                <i class='icon iconfont icon-heart1 heart_right'></i>
+            </div>
+        </div>
+        <div class="sdt_score">
+            <p class='sdt_shop_score'>
+                <strong class='star'>
+                    <i class="icon iconfont icon-star1"></i>
+                    <i class="icon iconfont icon-star1"></i>
+                    <i class="icon iconfont icon-star1"></i>
+                    <i class="icon iconfont icon-star1"></i>
+                    <i class="icon iconfont icon-star"></i>
+                </strong>
+                <span class='score'>4.7</span>
+            </p>
+            <span class="comments_num">199条评价</span>
+        </div>
+        <div class="sdt_location">
+            <i class="icon iconfont icon-dingwei dingwei_icon"></i>
+            <p class='sdt_address'>
+                <strong class='sdt_location_detail'>汕头市金平区金砂东路142号</strong>
+                <span class='sdt_distance'>距您1.2KM</span>
+            </p>
+            <div class="sdt_navigationBt">
+                <i class='icon iconfont icon-daohang daohang_icon'></i>
+                <span>导航</span>
+            </div>
+        </div>
+        <div class="sdt_swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="./src/images/sd_content.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./src/images/sd_content.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./src/images/sd_content.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="./src/images/sd_content.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sd_content">
+        <div class="sd_content_nav">
+            <span class='active'>洗车</span><span >评价(72)</span>
+        </div>
+        <div class="sd_washcar">
+            <p class='sd_washcar_title'>
+                <span>精细洗车</span> <span>45元</span></p>
+            <ul class='sd_washcar_list'>
+                <li>全车手工清洗</li>
+                <li>洗车时长约30分钟</li>
+            </ul>
+            <div class="sd_washcar_note">
+                <p class='n_title'>购买须知</p>
+                <p class='validation'>
+                    <span>有效期</span>
+                    <span>2019-03-03至2019-03-09</span>
+                </p>
+                <p class='usetime'>
+                    <span>使用时间</span>
+                    <span>17:00-21:00</span>
+                </p>
+
+            </div>
+
+
+            <div class="use_rules">
+                <p class='n_title'>使用规则</p>
+                <p>使用规则详细文本使用规则详细文本使用规则详细文本使用规则详细文本使用规则详细文本使用规则详细文本使用规则详细文本使用规则详细文本使用规则详细文本使用规则详细文本使用规则详细文本</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="sd_bottom">
+            立即抢购
+    </div>
+</body>
+
+</html>
+<script>
+    $(function () {
+        var swiper = new Swiper('.sdt_swiper', {
+            slidesPerView: 3,
+            spaceBetween: 14
+        });
+
+
+        $('.sd_content_nav').click(function (e) {
+            $(e.target).addClass('active').siblings().removeClass('active');
+        })
+    })
+</script>
