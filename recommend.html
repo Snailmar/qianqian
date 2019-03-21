@@ -255,23 +255,22 @@
     </div>
 
     <div class="tabbar">
-        <a>
-            <i class="icon iconfont icon-xiche-cuxiantiao "></i>
-
-            <span class=''>洗车</span>
-
-        </a>
-
-        <a class='gradient-text'>
-            <i class="icon iconfont icon-zhinanzhen"></i>
-            <span>推荐</span>
-        </a>
-
-        <a>
-            <i class="icon iconfont icon-wode2"></i>
-            <span>我的</span>
-        </a>
-    </div>
+            <a class='gradient-text'>
+                <i class="icon iconfont icon-xiche-cuxiantiao "></i>
+                <span class='gradient-text'>洗车</span>
+    
+            </a>
+    
+            <a>
+                <i class="icon iconfont icon-zhinanzhen"></i>
+                <span>推荐</span>
+            </a>
+    
+            <a>
+                <i class="icon iconfont icon-wode2"></i>
+                <span>我的</span>
+            </a>
+        </div>
 
 </body>
 
@@ -310,14 +309,9 @@
 
 
 
-        $('.tabbar').click(function (e) {
-            var target = e.target;
-            if (target.tagName == 'A') {
-                $(target).addClass('gradient-text').siblings().removeClass('gradient-text');
-            }
-            if (target.tagName == 'I' || target.tagName == 'SPAN') {
-                $(target).parent().addClass('gradient-text').siblings().removeClass('gradient-text');
-            }
+        $('.tabbar a').click(function (e) {
+            var target=e.currentTarget;
+            $(target).addClass('gradient-text').siblings().removeClass('gradient-text').children().removeClass('gradient-text')
 
         })
     })
