@@ -66,6 +66,7 @@ html {
 html,body{
     height: 100%;
 }
+
 *,
 *::before,
 *::after {
@@ -103,7 +104,7 @@ box-shadow:0px 20px 15px 0px rgba(0,0,0,0.15);-webkit-background-clip: text;
 #wrapper_content{
     width: 100%;
     min-height: 101%;
-    
+    background: #202020;
     position: absolute;
 }
 .pulluptorefresh{
@@ -263,6 +264,15 @@ margin-bottom: 0.36rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.shop_name{
+    display: block;
+    flex:1;
+    margin-right: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
 }
 .shop_score{
 line-height: 0.65rem;

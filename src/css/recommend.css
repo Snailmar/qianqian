@@ -23,13 +23,13 @@
 .r_title >div{
 flex: 1;
 }
-.r_title>div>span{
+.r_title_txt{
     display: inline-block;
     
 }
 .r_title>div>span.active{
     
-    color:rgba(208,165,104,1);
+    color:#D0A568;
 background:linear-gradient(45deg, rgba(215,171,114,0.95) , rgba(164,110,80,0.7) );
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
