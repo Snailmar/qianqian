@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,100 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="./src/js/rem.js"></script>
 </head>
+
 <body>
+    <div class="dygl">
+        <ul class="dygl_list">
+            <li>
+                <a href="javascript:;;">
+                    <img src="./src/images/profile.png" alt="" class="dygl_profile">
+                    <div class="dygl_info"><span class="dygl_name">咕噜噜</span><span class="dygl_phone">15606557504</span></div>
+                    <div class="dygl_set"><img src="./src/images/set.png" alt="" class='setimg'></div>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;;">
+                    <img src="./src/images/profile.png" alt="" class="dygl_profile">
+                    <div class="dygl_info"><span class="dygl_name">咕噜噜</span><span class="dygl_phone">15606557504</span></div>
+                    <div class="dygl_set"><img src="./src/images/set.png" alt="" class='setimg'></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="dygl_toast">
+        <div class="dyglt_closeBtn">
+            <i class="icon iconfont icon-close"></i>
+        </div>
+        <div class="dyglt_info">
+            <img src="./src/images/profile.png" alt="" class="dygl_profile">
+            <div class="dygl_info"><span class="dygl_name">咕噜噜</span><span class="dygl_phone">15606557504</span></div>
+            <span class="delete_admin">删除管理员</span>
+        </div>
+        <strong>编辑权限</strong>
+        <ul class="edit_right">
+            <li class='active'>
+                <div class="edit_rigth_choose active">
+
+                    <i class="icon iconfont icon-duigou"></i>
+                </div>
+                <span class='edit_right_text'>店铺状态</span>
+            </li>
+            <li>
+                    <div class="edit_rigth_choose ">
     
+                        <i class="icon iconfont icon-duigou"></i>
+                    </div>
+                    <span class='edit_right_text'>店铺状态</span>
+                </li>
+                <li>
+                        <div class="edit_rigth_choose">
+        
+                            <i class="icon iconfont icon-duigou"></i>
+                        </div>
+                        <span class='edit_right_text'>店铺状态</span>
+                    </li>
+        </ul>
+        <div class='edit_confirm'>确认</div>
+    </div>
+    <div class="dygl_mask">
+
+    </div>
+    <div class="sd_bottom ">
+        添加管理员
+    </div>
+
 </body>
+
 </html>
+<script>
+    $(function () {
+        $('.dygl_list').on('click', (e) => {
+            console.log(e.target.className);
+            if (e.target.className.trim() == 'setimg') {
+                $('.dygl_toast').show();
+                $('.dygl_mask').show();
+            }
+        })
+
+        $('.icon-close').click(()=>{
+            $('.dygl_toast').hide();
+                $('.dygl_mask').hide();
+        })
+        $('.dygl_mask').click(()=>{
+            $('.dygl_toast').hide();
+                $('.dygl_mask').hide();
+        })
+
+
+        $(".edit_right li").click(function (e) {
+            $(this).toggleClass('active').children('div').toggleClass('active')//切换编辑权限
+        })
+
+        //确认按钮
+        $('.edit_confirm').click(function (e) {
+            $('.dygl_toast').hide();
+                $('.dygl_mask').hide();
+        })
+    })
+</script>

@@ -1,3 +1,15 @@
+.r_outerwrap{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.r_innerwrap{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 101%;
+    width: 100%;
+}
 .r_top_img{
     height: 5.16rem;
     width: 100%;
@@ -27,12 +39,9 @@ flex: 1;
     display: inline-block;
     
 }
-.r_title>div>span.active{
-    
+.r_title>div>.r_title_txt.active{
+    border-bottom:0.04rem solid #D0A568;
     color:#D0A568;
-background:linear-gradient(45deg, rgba(215,171,114,0.95) , rgba(164,110,80,0.7) );
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
 }
 .r_t_bottom{
     
@@ -51,10 +60,44 @@ background:linear-gradient(45deg, rgba(215,171,114,0.95) , rgba(164,110,80,0.7) 
     width: 100%;
 
 }
-.r_rank img{
-    width: 1.32rem;
-    height: 1.32rem;
-}
+
+.boxF ,.boxS,
+.boxT{
+            width: 1.3rem;
+            height: 1.8rem;
+            overflow: hidden;
+        }
+        
+        .boxF,
+        .boxS {
+            visibility: hidden;
+        }
+
+        .boxF {
+            transform: rotate(120deg);
+            float: left;
+            -ms-transform: rotate(120deg);
+            -moz-transform: rotate(120deg);
+            -webkit-transform: rotate(120deg);
+        }
+
+        .boxS {
+            transform: rotate(-60deg);
+            -ms-transform: rotate(-60deg);
+            -moz-transform: rotate(-60deg);
+            -webkit-transform: rotate(-60deg);
+        }
+
+        .boxT {
+            transform: rotate(-60deg);
+            background: no-repeat 50% center;
+            background-size: 125% auto;
+            -ms-transform: rotate(-60deg);
+            -moz-transform: rotate(-60deg);
+            -webkit-transform: rotate(-60deg);
+            visibility: visible;
+        }
+
 .r_rank_list a{
     display: block;
 }
@@ -63,7 +106,9 @@ background:linear-gradient(45deg, rgba(215,171,114,0.95) , rgba(164,110,80,0.7) 
     display: flex;
     align-items: center;
 }
+
 .rank_name{
+
 font-size: 0.28rem;
 color: #333;
 }
@@ -84,24 +129,26 @@ color: #333;
 margin-right: 0.12rem;
 }
 .r_rank_list li:nth-child(n+4) .rank_name{
+    flex: 1;
+    margin-right: 0.12rem;
     margin-left: 0.12rem;
 }
 .r_rank_list li:nth-child(1){
     position: absolute;
-    top: 0;
+    top: -0.4rem;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
 }
-.r_rank_list li:nth-child(1) img{
-    width: 1.74rem;
-    height: 1.74rem;
+.r_rank_list li:nth-child(1) div{
+    width: 1.7rem;
+    height: 2.5rem;
 }
 .r_rank_list li:nth-child(1) .rank_num{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top:1.5rem;
+    top:1.9rem;
     display: block;
     width:0.48rem;
 height:0.48rem;
@@ -113,14 +160,24 @@ font-size:0.28rem;
 
 font-weight:bold;
 color: #040301;
+z-index: 22;
 }
 .r_rank_list li:nth-child(1) .rank_name{
     display: block;
-    margin-top: 0.33rem;
-    margin-bottom: 0.2rem;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+top:2.4rem;
     color: #FFFFFF;
 
 
+}
+.r_rank_list li:nth-child(1) .rank_score{
+    position: absolute;
+    top: 2.9rem;
+    left: 50%;
+    transform: translateX(-50%)
 }
 .r_rank_list li:nth-child(1) .rank_score,.r_rank_list li:nth-child(2) .rank_score,.r_rank_list li:nth-child(3) .rank_score
 {
@@ -129,13 +186,16 @@ color: #040301;
 }
 
 .r_rank_list li:nth-child(2),.r_rank_list li:nth-child(3){
-    margin-left: 0.31rem;
-    padding-top: 0.51rem;
-display: inline-block;
-position: relative;
+    
+    top: 0;
+position: absolute;
 text-align: center;
 }
+.r_rank_list li:nth-child(2){
+    left: 0.59rem;
+}
 .r_rank_list li:nth-child(2) .rank_num,.r_rank_list li:nth-child(3) .rank_num{
+    z-index: 20;
     display: block;
     width:0.36rem;
 height:0.36rem;
@@ -147,24 +207,39 @@ background:linear-gradient(180deg,rgba(231,231,231,1) ,rgba(112,112,112,1) );
 position: absolute;
 left: 50%;
 transform: translateX(-50%);
-top:1.65rem;
+top:1.5rem;
 }
 .r_rank_list li:nth-child(2) .rank_name,.r_rank_list li:nth-child(3) .rank_name{
+    display:block;
+    position: absolute;
+    width: 100%;
+    color: #fff;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%)
+}
+.r_rank_list li:nth-child(2) .rank_score,.r_rank_list li:nth-child(3) .rank_score{
+    position: absolute;
+    top: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%)
+}
+.r_rank_list li:nth-child(3) .rank_name{
     display: block;
-    margin-top: 0.3rem;
+    width: 100%;
+    
     margin-bottom: 0.12rem;
     color: #fff;
 }
 .r_rank_list li:nth-child(3){
-    position: absolute;
-    top: 0;
-    right: 0.31rem;
+   
+    right: 0.59rem;
 }
 .r_rank_list li:nth-child(3) .rank_num{
     background:linear-gradient(180deg,rgba(249,199,160,1) ,rgba(208,120,63,1) );
 }
 .r_rank_list li:nth-child(4){
-    margin-top: 1.62rem;
+    padding-top: 4.5rem;
 }
 
 /* 商家优惠 */
