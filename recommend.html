@@ -16,8 +16,8 @@
 </head>
 
 <body>
-    <div class="r_outerwrap">
-        <div class="r_innerwrap">
+    <div id="wrapper">
+        <div id="wrapper_content">
             <div class="r_top_img">
                 <img src="./src/images/recommend_top.png" alt="">
             </div>
@@ -155,6 +155,7 @@
 
 
                 </ul>
+
             </div>
             <div class="r_discounts">
                 <ul class="rd_list">
@@ -312,8 +313,16 @@
 </html>
 <script>
     $(function () {
+        var lat, lon; //获取经纬度
+    navigator.geolocation.getCurrentPosition(function(position) {
+      lat = position.coords.latitude;
+      lon = position.coords.longitude;
+    });
         var str_rank = ``;
         var str_discount = ``;
+        var myScroll;
+        var page = 0;
+        var page_size = 5;
         var count = 0;
         var cityid = 84;
         var loadingStep = 0;
@@ -327,6 +336,7 @@
                 if (str_rank.length != 0) {
 
                     $('.r_rank_list').html(str_rank);
+                    refresh();
                     return;
                 }
                 $.get('http://stqqkj.com/index.php/Home/Mobile/ShoplistByscore/page/0/cityid/' + cityid,
@@ -335,14 +345,35 @@
 
                         if (res.resultCode == 0) {
                             str_rank += handleResult(res);
-                            $('.r_rank_list').html(str_rank)
+                            $('.r_rank_list').html(str_rank);
+
+                            if ($('.r_rank_list').length < page_size) {
+                                return;
+                            }
+                            setTimeout(() => {
+                                $.get(
+                                    'http://stqqkj.com/index.php/Home/Mobile/ShoplistByscore/page/1/cityid/' +
+                                    cityid,
+                                    function (res) {
+                                        var res = JSON.parse(res)
+                                        if (res.resultCode == 0) {
+                                            str_rank += handleResult(res);
+                                            $('.r_rank_list').html(str_rank +
+                                                `<div class="pulluptorefresh">
+                上拉加载更多
+            </div>`
+                                            ); //保证每次加载前十名
+                                        }
+
+                                    })
+                            }, 3000);
 
                         }
                     })
             }
         })
 
-        function handleResult(res) {
+        function handleResult(res) {//处理商家排行
             var str = ``;
             res.data.forEach((ele) => {
                 count++;
@@ -366,6 +397,37 @@
 
         }
 
+        function handleResult2(res) {//处理商家优惠,参数还需要修改
+            var str = ``;
+            res.data.forEach((ele) => {
+                str +=
+                    ` <li>
+                        <a href="#">
+                            <div class='rd_top'>
+                                <img src="./src/images/shop_icon.png" alt="">
+                                <span class='rd_shopname'>${ele.shop_name}</span>
+                                <span class="rd_location"><i class="icon iconfont icon-dingwei dingwei_icon"></i>距您`;
+                //计算距离
+                var distance = getDistance(lat,lon,ele.shop_lat,ele.shop_lon)
+
+                str += distance +
+                    `米</span>
+                            </div>
+                            <div class="rd_content">
+                                <img src="${ele.logo}" alt="">
+                                <div class='rdc_info'>
+                                    <span>商品名商品名商品名</span>
+                                    <strong class="rd_newprice">￥90</strong>
+                                    <i class="rd_oldprice">￥120</i>
+                                </div>
+                                <div class="rd_buyBtn">购买</div>
+                            </div>
+                        </a>
+                    </li>`
+            })
+            return str;
+        }
+
         $('.r_title_txt').click(function () {
             $(this).addClass('active').parent().siblings().children('.r_title_txt').removeClass(
                 'active');
@@ -375,10 +437,58 @@
             if ($(this).text() == '商家排行榜') {
                 $('.r_rank').show();
                 $('.r_discounts').hide();
+                $('#wrapper_content').css('background', 'none')
             }
             if ($(this).text() == '商家优惠') {
+                $('#wrapper_content').css('background', '#111')
+
                 $('.r_rank').hide();
                 $('.r_discounts').show();
+                if (str_discount.length != 0) {
+                    $('.rd_list').html(str_discount);
+                    refresh();
+                    return;
+                }
+                $.get('http://stqqkj.com/index.php/Home/Mobile/GetShopActivity/page/0/cityid/' + cityid,
+                    res => {
+                        var res = JSON.parse(res)
+
+                        if (res.resultCode == 0) {
+                            if (res.data.length == 0) {
+                                $('.rd_list').html(
+                                    `<div class="pulluptorefresh">
+                附近暂无商家优惠
+            </div>`
+                                );
+                                return;
+                            }
+                            str_discount += handleResult2(res);
+
+                            $('.rd_list').html(str_discount);
+
+                            if ($('.rd_list').length < page_size) {
+                                return;
+                            }
+                            setTimeout(() => {
+                                $.get(
+                                    'http://stqqkj.com/index.php/Home/Mobile/GetShopActivity/page/1/cityid/' +
+                                    cityid,
+                                    function (res) {
+                                        var res = JSON.parse(res)
+                                        if (res.resultCode == 0) {
+                                            str_discount += handleResult2(res);
+                                            $('.rd_list').html(str_discount +
+                                                `<div class="pulluptorefresh">
+上拉加载更多
+</div>`
+                                            ); //保证每次加载前十个
+                                        }
+
+                                    })
+                            }, 3000);
+
+                        }
+                    });
             }
 
         })
@@ -391,30 +501,156 @@
                 'gradient-text')
 
         })
-    })
+        $("#wrapper").on('touchmove', (e) => {
+            e.preventDefault();
+        })
 
+        myScroll = new IScroll("#wrapper", {
+            scrollbars: true,
+            mouseWheel: false,
+            interactiveScrollbars: true,
+            shrinkScrollbars: "scale",
+            fadeScrollbars: true,
+            scrollY: true,
+            probeType: 2,
+            bindToWrapper: true,
+            preventDefault: false
+        });
+        myScroll.on("scroll", function () {
+            if (this.maxScrollY - this.y >= 60 && loadingStep == 0) {
+                //下拉后加载更多
+                loadingStep = 1;
+                pullUpAction();
+            }
 
-    myScroll = new IScroll(".r_outerwrap", {
-        scrollbars: true,
-        mouseWheel: false,
-        interactiveScrollbars: true,
-        shrinkScrollbars: "scale",
-        fadeScrollbars: true,
-        scrollY: true,
-        probeType: 2,
-        bindToWrapper: true,
-        preventDefault: false
-    });
-    myScroll.on("scroll", function () {
-        if (this.maxScrollY - this.y >= 60 && loadingStep == 0) {
-            //下拉后加载更多
-            loadingStep = 1;
-            pullUpAction();
+        });
+
+        function pullUpAction() {
+            refresh();
+            setTimeout(() => {
+                $('.r_title_txt').each(function () {
+                    if ($(this).hasClass('active') && $(this).text().trim() == '商家排行榜') {
+
+                        var allitems = $(".r_rank_list").children('li').length
+                        page = parseInt(allitems / page_size);
+                        if (allitems % page_size > 0) {
+                            $(".r_rank_list").html(str_rank)
+
+                            if (allitems > 10) {
+                                $('.r_rank_list').parent().append(
+                                    `<div class="pulluptorefresh">
+                没有更多结果
+            </div>`
+                                )
+                            }
+                            loadingStep = 0;
+                            refresh();
+                            return;
+                        }
+                        $.get(
+                            'http://stqqkj.com/index.php/Home/Mobile/ShoplistByscore/page/' +
+                            page + '/cityid/' +
+                            cityid, res => {
+
+                                var data = JSON.parse(res);
+                                if (data.data.length == 0) {
+                                    $(".r_rank_list").html(
+                                        str_rank +
+                                        `<div class="pulluptorefresh">
+                没有更多结果
+            </div>`
+                                    );
+                                    loadingStep = 0;
+                                    refresh();
+
+                                    return;
+                                }
+                                str_rank += handleResult(res);
+                                $(".r_rank_list").html(str_rank +
+                                    `<div class="pulluptorefresh">
+                上拉加载更多
+            </div>`
+                                );
+                                loadingStep = 0;
+                                refresh();
+                            })
+
+                        loadingStep = 0;
+                    }
+                    if ($(this).hasClass('active') && $(this).text().trim() == '商家优惠') {
+
+                        var allitems = $(".rd_list").children('li').length
+                        page = parseInt(allitems / page_size);
+                        if (allitems % page_size > 0) {
+                            $(".rd_list").html(str_discount +
+                                `<div class="pulluptorefresh">
+没有更多结果
+</div>`)
+                            loadingStep = 0;
+                            refresh();
+                            return;
+                        }
+                        $.get(
+                            'http://stqqkj.com/index.php/Home/Mobile/GetShopActivity/page/' +
+                            page + '/cityid/' +
+                            cityid, res => {
+
+                                var data = JSON.parse(res);
+                                if (data.data.length == 0) {
+                                    $(".rd_list").html(
+                                        str_discount +
+                                        `<div class="pulluptorefresh">
+没有更多结果
+</div>`
+                                    );
+                                    loadingStep = 0;
+                                    refresh();
+
+                                    return;
+                                }
+                                str_discount += handleresult2(res);
+                                $(".rd_list").html(str_discount +
+                                    `<div class="pulluptorefresh">
+上拉加载更多
+</div>`);
+                                loadingStep = 0;
+                                refresh();
+                            })
+
+                        loadingStep = 0;
+                    }
+
+                })
+            }, 100);
         }
 
-    });
-
-    function pullUpAction() {
-
+        function refresh() {
+            setTimeout(function () {
+                myScroll.refresh();
+            }, 100);
+        }
+//计算距离
+        var EARTH_RADIUS = 6378137.0;    //单位M
+    var PI = Math.PI;
+    
+    function getRad(d){
+        return d*PI/180.0;
     }
+    
+    function getDistance(lat1,lng1,lat2,lng2){//方法可能有问题
+        var radLat1 = getRad(lat1);
+        var radLat2 = getRad(lat2);
+        
+        var a = radLat1 - radLat2;
+        var b = getRad(lng1) - getRad(lng2);
+        
+        var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+        s = s*EARTH_RADIUS;
+        s = Math.round(s*10000)/10000.0;
+                
+        return s;
+    }
+
+        
+    })
 </script>

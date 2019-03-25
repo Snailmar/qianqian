@@ -63,6 +63,7 @@ html {
 html,
 body {
   height: 100%;
+  
 }
 
 *,
@@ -119,6 +120,43 @@ body {
   background: #202020;
   position: absolute;
 }
+.select_location{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 888;
+    background: #fff;
+    font-size: 0.28rem;
+
+}
+.sl_top{
+    color: #333333;
+    padding: 0.36rem 0.28rem;
+    line-height: 0.4rem;
+}
+.sl_list{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0.28rem 1rem;
+}
+.sl_list li{
+    width: 1.2rem;
+    height: 0.64rem;
+    line-height: 0.64rem;
+    text-align: center;
+    color: #606060;
+    border: #ccc 1px solid;
+    border-radius: 0.12rem;
+    margin-right: 0.28rem;
+}
+.sl_list li.active{
+    color: #C79866;
+    border: 1px solid #C99B67;
+}
+
 .pulluptorefresh {
   text-align: center;
 }

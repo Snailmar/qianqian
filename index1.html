@@ -78,6 +78,19 @@
        
       </div>
     </div>
+
+    <div class="select_location">
+      <div class="sl_top">
+          请选择您所在的城市
+      </div>
+      <ul class="sl_list">
+        <li data-cityid=84 class='active'>汕头</li>
+        <li data-cityid=83>揭阳</li>
+      </ul>
+      <div class="sd_bottom ">
+        确定
+      </div>
+    </div>
     <div class="tabbar">
       <a class="gradient-text">
         <i class="icon iconfont icon-xiche-cuxiantiao "></i>
@@ -144,7 +157,21 @@
         refresh();
       }
     );
+//选择地址
+$('.loaction').on('click',()=>{
+  $('.select_location').show();
+})
+$('.sl_list').on('click',(e)=>{
 
+var target=$(e.target);
+target.addClass('active').siblings().removeClass('active')
+cityid=target.data('cityid')
+
+})
+$('.sd_bottom').on('click',function () {
+  $(this).parent().hide();
+  console.log(cityid);
+})
     //搜索
     $(".inputSearch").on("keyup", function(e) {
       keyword = this.value;
@@ -273,7 +300,10 @@
               cityid,
             res => {
               content_byscore += handle_result(res);
-              $(".content_wrap").html(content_byscore);
+              $(".content_wrap").html(content_byscore+
+                    `<div class="pulluptorefresh">
+                上拉加载更多
+            </div>`);
         refresh();
 
             }
@@ -358,7 +388,7 @@
             refresh();
             var allitems=$(".content_wrap").children('li').length
           page = parseInt(allitems / page_size);
-            if(allitems/page_size>0){
+            if(allitems%page_size>0){
                 $(".content_wrap").html(content_bysearch+`<div class="pulluptorefresh">
                 没有更多结果
             </div>`)
@@ -411,11 +441,12 @@ return;
                 .trim() == "距离最近":
                 var allitems=$(".content_wrap").children('li').length
           page = parseInt(allitems / page_size);
-            if(allitems/page_size>0){
+            if(allitems%page_size>0){
                 $(".content_wrap").html(content_bydistance+`<div class="pulluptorefresh">
                 没有更多结果
             </div>`)
             loadingStep=0;
+            refresh();
 
 return;
             }
@@ -456,7 +487,7 @@ return;
                 .trim() == "价格最优":
                 var allitems=$(".content_wrap").children('li').length
           page = parseInt(allitems / page_size);
-            if(allitems/page_size>0){
+            if(allitems%page_size>0){
                 $(".content_wrap").html(content_byprice+`<div class="pulluptorefresh">
                 没有更多结果
             </div>`)
@@ -499,7 +530,7 @@ return;
                 .trim() == "评分最高":
                 var allitems=$(".content_wrap").children('li').length
           page = parseInt(allitems / page_size);
-            if(allitems/page_size>0){
+            if(allitems%page_size>0){
                 $(".content_wrap").html(content_byscore+`<div class="pulluptorefresh">
                 没有更多结果
             </div>`)
@@ -616,7 +647,7 @@ return;
           for (let i = 0, len = parseInt(score / 2); i < len; i++) {
             str += `<i class="icon iconfont icon-star1"></i>`;
           }
-          if (score % 1 > 0) {
+          if ((score/2) % 1 > 0) {
             str += `<i class="icon iconfont icon-star"></i>`;
           }
 

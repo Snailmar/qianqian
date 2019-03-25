@@ -1,14 +1,5 @@
-.r_outerwrap{
-    height: 100%;
-    width: 100%;
-    position: relative;
-}
-.r_innerwrap{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 101%;
-    width: 100%;
+#wrapper_content{
+    background: none;
 }
 .r_top_img{
     height: 5.16rem;
@@ -250,7 +241,7 @@ top:1.5rem;
     top: 1.12rem;
     left: 0;
     padding: 0 0.28rem 1rem;
-   background: rgba(17,17,17,1) ;
+  
     
 }
 .rd_list li{
@@ -330,4 +321,6 @@ font-size: 0.28rem;
 color: #fff;
 background:rgba(208,165,104,1) linear-gradient(45deg,rgba(215,171,114,0.95) ,rgba(164,110,80,0.7) );
 }
-
+.pulluptorefresh{
+    color: #777;
+}
