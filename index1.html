@@ -124,7 +124,7 @@
     var cityid = 84;
     var keyword = "云轩";
     var test_str = ``;
-
+var loc='汕头';
     var content_bydistance = ``,
       content_byprice = ``,
       content_byscore = ``,
@@ -166,10 +166,19 @@ $('.sl_list').on('click',(e)=>{
 var target=$(e.target);
 target.addClass('active').siblings().removeClass('active')
 cityid=target.data('cityid')
+loc=target.text();
 
 })
 $('.sd_bottom').on('click',function () {
   $(this).parent().hide();
+  //重置所有content
+  content_bydistance = ``,
+      content_byprice = ``,
+      content_byscore = ``,
+      content_byfavour = ``,
+      content_bysearch = ``;
+      console.log(loc);
+      $('.loaction>span').text(loc)
   console.log(cityid);
 })
     //搜索
@@ -240,9 +249,6 @@ $('.sd_bottom').on('click',function () {
         .addClass("active")
         .siblings()
         .removeClass("active");
-      // var ind = $(e.target).index();
-      // var content_arr=[content_bydistance,content_byprice,content_byscore,content_byfavour]
-      // $('.content').html(content_arr[ind]);
 
       var ele = e.target;
       switch (true) {
@@ -377,8 +383,6 @@ $('.sd_bottom').on('click',function () {
 
     function pullUpAction() {
       setTimeout(() => {
-        
-
         if (
             //search上拉加载
           $(!".top_nav_menu")
