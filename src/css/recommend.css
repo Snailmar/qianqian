@@ -45,9 +45,8 @@ flex: 1;
 
 .r_rank{
     padding: 0rem 0.28rem 1rem 0.28rem;
-    margin-top: 0.25rem;
-    position: absolute;
-    top: 0.76rem;
+   margin-top: -4.1rem;
+   position: relative;
     width: 100%;
 
 }
@@ -236,13 +235,13 @@ top:1.5rem;
 /* 商家优惠 */
 .r_discounts{
     display: none;
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     width: 100%;
-    top: 1.12rem;
-    left: 0;
+    margin-top: -4rem;
     padding: 0 0.28rem 1rem;
   
-    
+    z-index: 999;
 }
 .rd_list li{
 background: #fff;
@@ -250,6 +249,7 @@ margin-bottom: 0.31rem;
 border-radius: 0.12rem;
 padding: 0.28rem;
 }
+
 .rd_top {
 display: flex;
 align-items: center;
