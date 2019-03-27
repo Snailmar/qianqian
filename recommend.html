@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="./src/css/global.css">
     <link rel="stylesheet" href="./src/font_qianqian/iconfont.css">
     <link rel="stylesheet" href="./src/css/recommend.css">
-    <script src="./src/js/zipto.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
     <script src="./src/js/rem.js"></script>
     <script src="https://cdn.bootcss.com/iScroll/5.2.0/iscroll-probe.min.js"></script>
 
@@ -314,27 +315,37 @@
 <script>
     $(function () {
         var lat, lon; //获取经纬度
-    navigator.geolocation.getCurrentPosition(function(position) {
-      lat = position.coords.latitude;
-      lon = position.coords.longitude;
-    });
+        navigator.geolocation.getCurrentPosition(function (position) {
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
+        });
         var str_rank = ``;
         var str_discount = ``;
         var myScroll;
         var page = 0;
         var page_size = 5;
         var count = 0;
-        var cityid = 84;
+        var cityid = 88;
         var loadingStep = 0;
+        myScroll = new IScroll("#wrapper", {
+            scrollbars: true,
+            mouseWheel: false,
+            interactiveScrollbars: true,
+            shrinkScrollbars: "scale",
+            fadeScrollbars: true,
+            scrollY: true,
+            probeType: 2,
+            bindToWrapper: true,
+            preventDefault: false
+        });
         //初次加载商家排行数据
         $('.r_title_txt').each(function (ind, ele) {
             if ($(ele).hasClass('active')) {
                 $(ele).children().show();
             }
             if ($(ele).text() == '商家排行榜') {
-
+                refresh();
                 if (str_rank.length != 0) {
-
                     $('.r_rank_list').html(str_rank);
                     refresh();
                     return;
@@ -346,8 +357,8 @@
                         if (res.resultCode == 0) {
                             str_rank += handleResult(res);
                             $('.r_rank_list').html(str_rank);
-
-                            if ($('.r_rank_list').length < page_size) {
+                            refresh();
+                            if ($('.r_rank_list').children('li').length < page_size) {
                                 return;
                             }
                             setTimeout(() => {
@@ -363,17 +374,23 @@
                 上拉加载更多
             </div>`
                                             ); //保证每次加载前十名
+
+
+
+                                            
+                                            refresh();
                                         }
+                                        refresh();
 
                                     })
-                            }, 3000);
+                            }, 1000);
 
                         }
                     })
             }
         })
 
-        function handleResult(res) {//处理商家排行
+        function handleResult(res) { //处理商家排行
             var str = ``;
             res.data.forEach((ele) => {
                 count++;
@@ -388,7 +405,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="rank_name ellipsis">${ele.shop_name}</span>
+                    <span class="rank_name ellipsis">${ele.shortname}</span>
                     <span class="rank_score">${ele.score}</span>
                 </a>
             </li>`
@@ -397,7 +414,7 @@
 
         }
 
-        function handleResult2(res) {//处理商家优惠,参数还需要修改
+        function handleResult2(res) { //处理商家优惠,参数还需要修改
             var str = ``;
             res.data.forEach((ele) => {
                 str +=
@@ -408,19 +425,19 @@
                                 <span class='rd_shopname'>${ele.shop_name}</span>
                                 <span class="rd_location"><i class="icon iconfont icon-dingwei dingwei_icon"></i>距您`;
                 //计算距离
-                var distance = getDistance(lat,lon,ele.shop_lat,ele.shop_lon)
+                var distance = getDistance(lat, lon, ele.shop_lat, ele.shop_lon)
 
                 str += distance +
                     `米</span>
                             </div>
                             <div class="rd_content">
-                                <img src="${ele.logo}" alt="">
+                                <img src="${ele.image}" alt="">
                                 <div class='rdc_info'>
-                                    <span>商品名商品名商品名</span>
-                                    <strong class="rd_newprice">￥90</strong>
-                                    <i class="rd_oldprice">￥120</i>
+                                    <span>${ele.goods_name}</span>
+                                    <strong class="rd_newprice">￥${ele.price}</strong>
+                                    <i class="rd_oldprice">￥${ele.cost_price}</i>
                                 </div>
-                                <div class="rd_buyBtn">购买</div>
+                                <div class="rd_buyBtn" data-id="${ele.shop_id}">购买</div>
                             </div>
                         </a>
                     </li>`
@@ -433,7 +450,7 @@
                 'active');
             $(this).children().show();
             $(this).parent().siblings().children().children().hide();
-
+            refresh();
             if ($(this).text() == '商家排行榜') {
                 $('.r_rank').show();
                 $('.r_discounts').hide();
@@ -460,13 +477,16 @@
                 附近暂无商家优惠
             </div>`
                                 );
+                                refresh();
+
                                 return;
                             }
                             str_discount += handleResult2(res);
 
                             $('.rd_list').html(str_discount);
+                            refresh();
 
-                            if ($('.rd_list').length < page_size) {
+                            if ($('.rd_list').children('li').length < page_size) {
                                 return;
                             }
                             setTimeout(() => {
@@ -482,10 +502,12 @@
 上拉加载更多
 </div>`
                                             ); //保证每次加载前十个
+                                            refresh();
+
                                         }
 
                                     })
-                            }, 3000);
+                            }, 1000);
 
                         }
                     });
@@ -505,17 +527,7 @@
             e.preventDefault();
         })
 
-        myScroll = new IScroll("#wrapper", {
-            scrollbars: true,
-            mouseWheel: false,
-            interactiveScrollbars: true,
-            shrinkScrollbars: "scale",
-            fadeScrollbars: true,
-            scrollY: true,
-            probeType: 2,
-            bindToWrapper: true,
-            preventDefault: false
-        });
+      
         myScroll.on("scroll", function () {
             if (this.maxScrollY - this.y >= 60 && loadingStep == 0) {
                 //下拉后加载更多
@@ -535,6 +547,7 @@
                         page = parseInt(allitems / page_size);
                         if (allitems % page_size > 0) {
                             $(".r_rank_list").html(str_rank)
+                            refresh();
 
                             if (allitems > 10) {
                                 $('.r_rank_list').parent().append(
@@ -552,8 +565,8 @@
                             page + '/cityid/' +
                             cityid, res => {
 
-                                var data = JSON.parse(res);
-                                if (data.data.length == 0) {
+                                var res = JSON.parse(res);
+                                if (res.data.length == 0) {
                                     $(".r_rank_list").html(
                                         str_rank +
                                         `<div class="pulluptorefresh">
@@ -595,8 +608,8 @@
                             page + '/cityid/' +
                             cityid, res => {
 
-                                var data = JSON.parse(res);
-                                if (data.data.length == 0) {
+                                var res = JSON.parse(res);
+                                if (res.data.length == 0) {
                                     $(".rd_list").html(
                                         str_discount +
                                         `<div class="pulluptorefresh">
@@ -629,28 +642,29 @@
                 myScroll.refresh();
             }, 100);
         }
-//计算距离
-        var EARTH_RADIUS = 6378137.0;    //单位M
-    var PI = Math.PI;
-    
-    function getRad(d){
-        return d*PI/180.0;
-    }
-    
-    function getDistance(lat1,lng1,lat2,lng2){//方法可能有问题
-        var radLat1 = getRad(lat1);
-        var radLat2 = getRad(lat2);
-        
-        var a = radLat1 - radLat2;
-        var b = getRad(lng1) - getRad(lng2);
-        
-        var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
-        s = s*EARTH_RADIUS;
-        s = Math.round(s*10000)/10000.0;
-                
-        return s;
-    }
+        //计算距离
+        var EARTH_RADIUS = 6378137.0; //单位M
+        var PI = Math.PI;
 
-        
+        function getRad(d) {
+            return d * PI / 180.0;
+        }
+
+        function getDistance(lat1, lng1, lat2, lng2) { //方法可能有问题
+            var radLat1 = getRad(lat1);
+            var radLat2 = getRad(lat2);
+
+            var a = radLat1 - radLat2;
+            var b = getRad(lng1) - getRad(lng2);
+
+            var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) *
+                Math.pow(Math.sin(b / 2), 2)));
+            s = s * EARTH_RADIUS;
+            s = Math.round(s * 10000) / 10000.0;
+
+            return s;
+        }
+
+
     })
 </script>
