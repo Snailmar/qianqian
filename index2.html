@@ -78,8 +78,8 @@
       请选择您所在的城市
     </div>
     <ul class="sl_list">
-      <li data-cityid=84 class='active'>汕头</li>
-      <li data-cityid=83>揭阳</li>
+      <li data-cityid=88 class='active'>汕头</li>
+      <li data-cityid=84>揭阳</li>
     </ul>
     <div class="sd_bottom ">
       确定
@@ -116,7 +116,7 @@
     var loadingStep = 0;
     var page = 0;
     var page_size = 5;
-    var cityid = 84;
+    var cityid = 88;
     var keyword = "云轩";
     var test_str = ``;
     var userid = 7;
@@ -233,6 +233,7 @@
     });
 
     $(".top_nav_menu").on("click", function (e) {
+      refresh();
       $(e.target)
         .addClass("active")
         .siblings()
@@ -510,7 +511,7 @@
       var url = '';
       switch (true) {
         case flag == 0:
-          url = "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/'+page+'/lon/" + lon + "/lat/" +
+          url = "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/"+page+"/lon/" + lon + "/lat/" +
             lat + "/cityid/" + cityid
           break;
         case flag == 1:

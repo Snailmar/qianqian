@@ -84,8 +84,8 @@
           请选择您所在的城市
       </div>
       <ul class="sl_list">
-        <li data-cityid=84 class='active'>汕头</li>
-        <li data-cityid=83>揭阳</li>
+        <li data-cityid=88 class='active'>汕头</li>
+        
       </ul>
       <div class="sd_bottom ">
         确定
@@ -121,7 +121,7 @@
     var loadingStep = 0;
     var page = 0;
     var page_size = 5; 
-    var cityid = 84;
+    var cityid = 88;
     var keyword = "云轩";
     var test_str = ``;
 var loc='汕头';
@@ -129,7 +129,8 @@ var loc='汕头';
       content_byprice = ``,
       content_byscore = ``,
       content_byfavour = ``,
-      content_bysearch = ``;
+      content_bysearch = ``,
+      content_city=``;
 
     //提前获取距离最近的店铺
     $.get(
@@ -160,6 +161,25 @@ var loc='汕头';
 //选择地址
 $('.loaction').on('click',()=>{
   $('.select_location').show();
+  if($('.sl_list').children('li').length>=2){
+    $('.sl_list').html(content_city);
+    return;
+  }
+  $.get('http://stqqkj.com/index.php/Home/Mobile/GetCity',(res)=>{
+    var res=JSON.parse(res);
+    
+    var data=res.data;
+    if(res.resultCode==0){
+      data.forEach((ele)=>{
+        content_city+=`<li data-cityid="${ele.id}" class="${ele.name.trim()=='汕头'?'active':''}">${ele.name}</li>`;
+      })
+    }else{
+      content_city+=`<li >网络异常,请刷新页面</li>`
+    }
+console.log(content_city);
+$('.sl_list').html(content_city);
+
+  })
 })
 $('.sl_list').on('click',(e)=>{
 
@@ -183,8 +203,8 @@ $('.sd_bottom').on('click',function () {
 })
     //搜索
     $(".inputSearch").on("keyup", function(e) {
-      keyword = this.value;
-
+      keyword = this.value.trim();
+      if(keyword.length==0) return;
       if (e.keyCode == 13) {
         $(".top_nav_menu")
           .children("a")
@@ -245,6 +265,7 @@ $('.sd_bottom').on('click',function () {
     });
 
     $(".top_nav_menu").on("click", function(e) {
+      refresh();
       $(e.target)
         .addClass("active")
         .siblings()
@@ -433,7 +454,8 @@ return;
             }
           );
           loadingStep = 0;
-          myScroll.refresh();
+        refresh();
+
         }
 
         $(".top_nav_menu a").each((ind, ele) => {
@@ -455,7 +477,7 @@ return;
 return;
             }
                 $.get(
-                  "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/'+page+'/lon/" +
+                  "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/"+page+"/lon/" +
                     lon +
                     "/lat/" +
                     lat +
@@ -496,6 +518,7 @@ return;
                 没有更多结果
             </div>`)
             loadingStep=0;
+            refresh();
 
 return;
             }
@@ -539,7 +562,7 @@ return;
                 没有更多结果
             </div>`)
             loadingStep=0;
-
+refresh();
 return;
             }
                 $.get(
@@ -561,7 +584,7 @@ return;
 
                       return;
                     }
-                    content_byprice += handle_result(res);
+                    content_byscore += handle_result(res);
                     $(".content_wrap").html(content_byscore+
                     `<div class="pulluptorefresh">
                 上拉加载更多
@@ -582,6 +605,7 @@ return;
                 没有更多结果
             </div>`)
             loadingStep=0;
+            refresh();
 
 return;
             }
