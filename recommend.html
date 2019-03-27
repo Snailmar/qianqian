@@ -421,9 +421,10 @@
                                 <span class='rd_shopname'>${ele.shop_name}</span>
                                 <span class="rd_location"><i class="icon iconfont icon-dingwei dingwei_icon"></i>距您`;
                 //计算距离
-                var distance = getDistance(lat, lon, ele.shop_lat, ele.shop_lon)
+                
+                var distance = getDistance(lat, lon, ele.shop_lat,ele.shop_lon )
 
-                str += distance +
+                str += distance.toFixed(0) +
                     `米</span>
                             </div>
                             <div class="rd_content">
