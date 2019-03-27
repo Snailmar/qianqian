@@ -198,6 +198,31 @@
       console.log(loc);
       $('.loaction>span').text(loc)
       console.log(cityid);
+
+//从新加载距离最近的店铺
+      $.get(
+        "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/0/lon/" +
+        lon +
+        "/lat/" +
+        lat +
+        "/cityid/" +
+        cityid,
+        res => {
+          var data = JSON.parse(res)
+          if (data.data.length == 0) {
+            $('.content_wrap').html(
+              `<div class="pulluptorefresh">
+                当前距离内没有洗车店
+            </div>`)
+          }
+          content_bydistance += handle_result(res);
+          $(".content_wrap").html(content_bydistance +
+            `<div class="pulluptorefresh">
+                上拉加载更多
+            </div>`);
+          refresh();
+        }
+      );
     })
     //搜索
     $(".inputSearch").on("keyup", function (e) {
