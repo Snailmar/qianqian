@@ -32,9 +32,7 @@
 
         <div class="swiper-container ">
           <div class="swiper-wrapper">
-            <!-- <div class="swiper-slide"><a href="javascript:;;"><img src="./src/images/top_nav_slider.png"></a></div> -->
           </div>
-
           <div class="swiper-pagination"></div>
         </div>
 
@@ -111,51 +109,49 @@
     var myScroll;
     var loadingStep = 0;
     var page = 0;
-    var page_size = 5;
+    var page_size = 10;
     var cityid = 88;
     var keyword = "云轩";
-    var test_str = ``;
     var user_id = 7;
     var loc = '汕头';
-    var content_bydistance = ``,
-      content_byprice = ``,
-      content_byscore = ``,
-      content_byfavour = ``,
-      content_bysearch = ``,
-      content_city = ``;
-    navigator.geolocation.getCurrentPosition(function (position) {
-      lat = position.coords.latitude;
-      lon = position.coords.longitude;
-      //获取定位后再提前获取距离最近的店铺
-      $.get(
-        "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/0/lon/" +
-        lon +
-        "/lat/" +
-        lat +
-        "/cityid/" +
-        cityid,
-        res => {
+    var content = {};
+    content.bydistance = ``,
+      content.byprice = ``,
+      content.byscore = ``,
+      content.byfavour = ``,
+      content.bysearch = ``;
+    var content_city = ``;
+
+    function first_load_shop_bydistance(lat, lon) {
+      $.get("http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/0/lon/" + lon + "/lat/" + lat +
+        "/cityid/" + cityid, res => {
           var data = JSON.parse(res)
-          if (data.data.length == 0) {
+          if (data.data.length == 0 || data.resultCode != 0) {
             $('.content_wrap').html(
               `<div class="pulluptorefresh">
                 当前距离内没有洗车店
             </div>`)
+            refresh();
+            return;
           }
-          content_bydistance += handle_result(res);
-          $(".content_wrap").html(content_bydistance +
+          content.bydistance += handle_result(res);
+          $(".content_wrap").html(content.bydistance +
             `<div class="pulluptorefresh">
-                上拉加载更多
+               <i class="icon iconfont icon-shangla-copy"></i> 上拉加载更多
             </div>`);
           refresh();
         }
       );
-    });
+    }
+    
+      //请先获取定位后再提前获取距离最近的店铺
+      first_load_shop_bydistance(lat, lon);
+    
 
     //选择地址
     $('.loaction').on('click', () => {
-      loc='汕头';//防止用户没有选择直接按确定
-      cityid=88;
+      loc = '汕头'; //防止用户没有选择直接按确定
+      cityid = 88;
       $('.select_location').show();
       if ($('.sl_list').children('li').length >= 2) {
         $('.sl_list').html(content_city);
@@ -173,14 +169,13 @@
         } else {
           content_city += `<li >网络异常,请刷新页面</li>`
         }
-        
+
         $('.sl_list').html(content_city);
-        
+
 
       })
     })
     $('.sl_list').on('click', (e) => {
-
       var target = $(e.target);
       target.addClass('active').siblings().removeClass('active')
       cityid = target.data('cityid')
@@ -190,52 +185,25 @@
     $('.sd_bottom').on('click', function () {
       $(this).parent().hide();
       //重置所有content
-      content_bydistance = ``,
-        content_byprice = ``,
-        content_byscore = ``,
-        content_byfavour = ``,
-        content_bysearch = ``;
-      console.log(loc);
+      content.bydistance = ``,
+        content.byprice = ``,
+        content.byscore = ``,
+        content.byfavour = ``,
+        content.bysearch = ``;
       $('.loaction>span').text(loc)
-      console.log(cityid);
-
-//重新加载距离最近的店铺
-      $.get(
-        "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/0/lon/" +
-        lon +
-        "/lat/" +
-        lat +
-        "/cityid/" +
-        cityid,
-        res => {
-          var data = JSON.parse(res)
-          if (data.data.length == 0) {
-            $('.content_wrap').html(
-              `<div class="pulluptorefresh">
-                当前距离内没有洗车店
-            </div>`)
-          }
-          content_bydistance += handle_result(res);
-          $(".content_wrap").html(content_bydistance +
-            `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-          refresh();
-        }
-      );
+      //重新加载距离最近的店铺
+      first_load_shop_bydistance(lat, lon)
     })
     //搜索
     $(".inputSearch").on("keyup", function (e) {
       keyword = this.value.trim();
       if (keyword.length == 0) return;
       if (e.keyCode == 13) {
-        $(".top_nav_menu")
-          .children("a")
-          .removeClass("active");
+        $(".top_nav_menu").children("a").removeClass("active");
 
         $.get(
           "http://stqqkj.com/index.php/Home/Mobile/ShoplistBySearch/page/" +
-          page +
+          0 +
           "/keyword/" +
           keyword +
           "/cityid/" +
@@ -243,28 +211,31 @@
           res => {
             var data = JSON.parse(res);
             if (data.resultCode == 0) {
-              content_bysearch = ``; //每次搜索都需要重置
-              content_bysearch += handle_result(res);
-              if (data.data.length == 0) {
+              content.bysearch = ``; //每次搜索都需要重置
+              content.bysearch += handle_result(res);
+              if (data.data.length == 0 || data.resultCode != 0) {
                 $(".content_wrap").html(
                   `<div class="pulluptorefresh">
                 没有搜索结果
             </div>`);
                 refresh();
-
                 return;
               }
-              $(".content_wrap").html(content_bysearch +
+              $(".content_wrap").html(content.bysearch +
                 `<div class="pulluptorefresh">
-                上拉加载更多
+                <i class="icon iconfont icon-shangla-copy"></i>上拉加载更多
             </div>`);
+            if($(".content_wrap").children('li').length<page_size){
+              content.bysearch +=`<div class="pulluptorefresh">没有更多搜索结果
+            </div>`
+              $(".content_wrap").html(content.bysearch);
+              }
               refresh();
             }
           }
         );
       }
     });
-
     //加载广告图片
     $.get("http://stqqkj.com/index.php/Home/Mobile/getAd", res => {
       var res = JSON.parse(res);
@@ -288,104 +259,75 @@
       }
     });
 
+    function hadle_menu_click(attr) {
+      if(attr=='bydistance'){
+      $(".content_wrap").html(content[attr] +
+            `<div class="pulluptorefresh">
+                <i class="icon iconfont icon-shangla-copy"></i> 上拉加载更多
+            </div>`);
+            refresh();
+            return;
+    }
+    if (content[attr].length > 2) {
+            $(".content_wrap").html(content[attr] +
+              `<div class="pulluptorefresh">
+                <i class="icon iconfont icon-shangla-copy"></i> 上拉加载更多
+            </div>`);
+            refresh();
+            return;
+          }
+          $(".content_wrap").html("");
+          var url='';
+          switch (true) {
+        case attr == 'bydistance':
+          url = "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/" + 0 + "/lon/" + lon +
+            "/lat/" + lat + "/cityid/" + cityid
+          break;
+        case attr == 'byprice':
+          url = "http://stqqkj.com/index.php/Home/Mobile/shoplistByprice/page/" + 0 + "/cityid/" + cityid;
+          break;
+        case attr == 'byscore':
+          url = "http://stqqkj.com/index.php/Home/Mobile/shoplistByscore/page/" + 0 + "/cityid/" + cityid;
+          break;
+        case attr == 'byfavour':
+          url = "http://stqqkj.com/index.php/Home/Mobile/ShoplistByfavour/page/" + 0 + "/user_id/" + user_id;
+          break;
+        case attr == 'bysearch':
+          url = "http://stqqkj.com/index.php/Home/Mobile/ShoplistBySearch/page/" + 0 + "/keyword/" + keyword +
+            "/cityid/" + cityid;
+          break;
+        default:
+          break;
+      }
+          $.get(url,
+            res => {
+              content[attr] += handle_result(res);
+              $(".content_wrap").html(content[attr] +
+                `<div class="pulluptorefresh">
+                <i class="icon iconfont icon-shangla-copy"></i> 上拉加载更多
+            </div>`);
+              refresh();
+            }
+          );
+  
+  
+  }
     $(".top_nav_menu").on("click", function (e) {
       refresh();
-      $(e.target)
-        .addClass("active")
-        .siblings()
-        .removeClass("active");
-
+      $(e.target).addClass("active").siblings().removeClass("active");
       var ele = e.target;
       switch (true) {
-        case $(ele)
-        .text()
-        .trim() == "距离最近":
-          $(".content_wrap").html(content_bydistance +
-            `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
+        case $(ele).text().trim() == "距离最近":
+        hadle_menu_click('bydistance')
           break;
-
-        case $(ele)
-        .text()
-        .trim() == "价格最优":
-          if (content_byprice.length > 2) {
-            $(".content_wrap").html(content_byprice +
-              `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-            refresh();
-
-            return;
-          }
-          $(".content_wrap").html("");
-          $.get(
-            "http://stqqkj.com/index.php/Home/Mobile/shoplistByprice/page/0/cityid/" +
-            cityid,
-            res => {
-              content_byprice += handle_result(res);
-              $(".content_wrap").html(content_byprice +
-                `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-              refresh();
-
-            }
-          );
+        case $(ele).text().trim() == "价格最优":
+        hadle_menu_click('byprice')
           break;
-        case $(ele)
-        .text()
-        .trim() == "评分最高":
-          if (content_byscore.length > 2) {
-            $(".content_wrap").html(content_byscore +
-              `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-            refresh();
-
-            return;
-          }
-          $(".content_wrap").html("");
-          $.get(
-            "http://stqqkj.com/index.php/Home/Mobile/shoplistByscore/page/0/cityid/" +
-            cityid,
-            res => {
-              content_byscore += handle_result(res);
-              $(".content_wrap").html(content_byscore +
-                `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-              refresh();
-
-            }
-          );
+        case $(ele).text().trim() == "评分最高":
+        hadle_menu_click('byscore')
           break;
-        case $(ele)
-        .text()
-        .trim() == "我的收藏":
-          if (content_byfavour.length > 2) {
-            $(".content_wrap").html(content_byfavour +
-              `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-            refresh();
-
-            return;
-          }
-          $(".content_wrap").html("");
-          $.get(
-            "http://stqqkj.com/index.php/Home/Mobile/shoplistByfavour/page/0/user_id/" +
-            user_id,
-            res => {
-              content_byfavour += handle_result(res);
-              $(".content_wrap").html(content_byfavour +
-                `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-              refresh();
-
-            }
-          );
+        case $(ele).text().trim() == "我的收藏":
+        hadle_menu_click('byfavour')
           break;
         default:
           break;
@@ -393,12 +335,7 @@
     });
     $(".tabbar a").click(function (e) {
       var target = e.currentTarget;
-      $(target)
-        .addClass("gradient-text")
-        .siblings()
-        .removeClass("gradient-text")
-        .children()
-        .removeClass("gradient-text");
+      $(target).addClass("gradient-text").siblings().removeClass("gradient-text").children().removeClass("gradient-text");
     });
 
     // iscroll
@@ -428,244 +365,27 @@
 
     function pullUpAction() {
       setTimeout(() => {
-        if (
-          //search上拉加载
-          $(!".top_nav_menu")
-          .children("a")
-          .hasClass("active")
-        ) {
+        //search上拉加载
+        if ($(!".top_nav_menu").children("a").hasClass("active")) {
           refresh();
-          var allitems = $(".content_wrap").children('li').length
-          page = parseInt(allitems / page_size);
-          if (allitems % page_size > 0) {
-            $(".content_wrap").html(content_bysearch +
-              `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`)
-            loadingStep = 0;
-            refresh();
-            return;
-          }
-          $.get(
-            "http://stqqkj.com/index.php/Home/Mobile/ShoplistBySearch/page/" +
-            page +
-            "/keyword/" +
-            keyword +
-            "/cityid/" +
-            cityid,
-            res => {
-              var data = JSON.parse(res);
-              if (data.data.length == 0) {
-                $(".content_wrap").html(
-                  content_bysearch +
-                  `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`
-                );
-                loadingStep = 0;
-                refresh();
-
-
-                return;
-              }
-              content_bysearch += handle_result(res);
-              $(".content_wrap").html(content_bysearch +
-                `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-              loadingStep = 0;
-              refresh();
-
-            }
-          );
-          loadingStep = 0;
-          refresh();
-
+          handle_pull_up('bysearch')
         }
 
         $(".top_nav_menu a").each((ind, ele) => {
           refresh();
           if ($(ele).hasClass("active")) {
             switch (true) {
-              case $(ele)
-              .text()
-              .trim() == "距离最近":
-                var allitems = $(".content_wrap").children('li').length
-                page = parseInt(allitems / page_size);
-                if (allitems % page_size > 0) {
-                  $(".content_wrap").html(content_bydistance +
-                    `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`)
-                  loadingStep = 0;
-                  refresh();
-
-                  return;
-                }
-                $.get(
-                  "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/" + page + "/lon/" +
-                  lon +
-                  "/lat/" +
-                  lat +
-                  "/cityid/" +
-                  cityid,
-                  res => {
-                    var data = JSON.parse(res);
-                    if (data.data.length == 0) {
-                      $(".content_wrap").html(
-                        content_bydistance +
-                        `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`
-                      );
-                      loadingStep = 0;
-                      refresh();
-
-                      return;
-                    }
-                    content_bydistance += handle_result(res);
-                    $(".content_wrap").html(content_bydistance +
-                      `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-                    loadingStep = 0;
-                    refresh();
-
-                  }
-                );
+              case $(ele).text().trim() == "距离最近":
+                handle_pull_up('bydistance')
                 break;
-              case $(ele)
-              .text()
-              .trim() == "价格最优":
-                var allitems = $(".content_wrap").children('li').length
-                page = parseInt(allitems / page_size);
-                if (allitems % page_size > 0) {
-                  $(".content_wrap").html(content_byprice +
-                    `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`)
-                  loadingStep = 0;
-                  refresh();
-
-                  return;
-                }
-                $.get(
-                  "http://stqqkj.com/index.php/Home/Mobile/shoplistByprice/page/" +
-                  page +
-                  "/cityid/" +
-                  cityid,
-                  res => {
-                    var data = JSON.parse(res);
-                    if (data.data.length == 0) {
-                      $(".content_wrap").html(
-                        content_byprice +
-                        `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`
-                      );
-                      loadingStep = 0;
-                      refresh();
-
-                      return;
-                    }
-                    content_byprice += handle_result(res);
-                    $(".content_wrap").html(content_byprice +
-                      `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-                    loadingStep = 0;
-                    refresh();
-
-                  }
-                );
+              case $(ele).text().trim() == "价格最优":
+                handle_pull_up('byprice')
                 break;
-              case $(ele)
-              .text()
-              .trim() == "评分最高":
-                var allitems = $(".content_wrap").children('li').length
-                page = parseInt(allitems / page_size);
-                if (allitems % page_size > 0) {
-                  $(".content_wrap").html(content_byscore +
-                    `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`)
-                  loadingStep = 0;
-                  refresh();
-                  return;
-                }
-                $.get(
-                  "http://stqqkj.com/index.php/Home/Mobile/shoplistByscore/page/" +
-                  page +
-                  "/cityid/" +
-                  cityid,
-                  res => {
-                    var data = JSON.parse(res);
-                    if (data.data.length == 0) {
-                      $(".content_wrap").html(
-                        content_byscore +
-                        `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`
-                      );
-                      loadingStep = 0;
-                      refresh();
-
-                      return;
-                    }
-                    content_byscore += handle_result(res);
-                    $(".content_wrap").html(content_byscore +
-                      `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-                    loadingStep = 0;
-                    refresh();
-
-                  }
-                );
+              case $(ele).text().trim() == "评分最高":
+                handle_pull_up('byscore')
                 break;
-              case $(ele)
-              .text()
-              .trim() == "我的收藏":
-                var allitems = $(".content_wrap").children('li').length
-                page = parseInt(allitems / page_size);
-                if (allitems % page_size > 0) {
-                  $(".content_wrap").html(content_byfavour +
-                    `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`)
-                  loadingStep = 0;
-                  refresh();
-
-                  return;
-                }
-                $.get(
-                  "http://stqqkj.com/index.php/Home/Mobile/ShoplistByfavour/page/" +
-                  page +
-                  "/user_id/" + user_id,
-                  res => {
-                    var data = JSON.parse(res);
-                    if (data.data.length == 0) {
-                      $(".content_wrap").html(
-                        content_byfavour +
-                        `<div class="pulluptorefresh">
-                没有更多结果
-            </div>`
-                      );
-                      loadingStep = 0;
-                      refresh();
-
-                      return;
-                    }
-                    content_byfavour += handle_result(res);
-                    $(".content_wrap").html(content_byfavour +
-                      `<div class="pulluptorefresh">
-                上拉加载更多
-            </div>`);
-                    loadingStep = 0;
-                    refresh();
-
-                  }
-                );
+              case $(ele).text().trim() == "我的收藏":
+                handle_pull_up('byfavour')
                 break;
               default:
                 break;
@@ -681,19 +401,13 @@
       var res = JSON.parse(res);
       var arr = res.data;
       var str = ``;
-      if (res.resultCode != 0) {
-        str = `<div>没有更多数据</div>`
-
-        return;
-      }
+      
       if (res.resultCode == 0) {
         var score = 0;
 
         arr.forEach(ele => {
           str +=
-            `
-                      
-                        <li>
+            `<li>
                             <a href="javascript:;;">
                                 <img src="${ele.shop_image}">
                                 <div class='shop_info'><span class='shop_name'>${
@@ -708,25 +422,66 @@
           if ((score / 2) % 1 > 0) {
             str += `<i class="icon iconfont icon-star"></i>`;
           }
-
-          str +=
-            `
-                                        </strong>
-                                        <span class='score'>${ele.score}</span>
-                                    </p>
-                                </div>
-                            </a>
-                        </li>`;
+          str +=`</strong><span class='score'>${ele.score}</span></p></div></a></li>`;
         });
       }
 
       return str;
     }
 
+    function handle_pull_up(attr) {
+      var allitems = $(".content_wrap").children('li').length
+      page = parseInt(allitems / page_size);
+      if (allitems % page_size > 0) {
+        content[attr] +=`<div class="pulluptorefresh">没有更多结果</div>`
+        $(".content_wrap").html(content[attr])
+        loadingStep = 0;
+        refresh();
+        return;
+      }
+      //判断请求
+      var url = '';
+      switch (true) {
+        case attr == 'bydistance':
+          url = "http://stqqkj.com/index.php/Home/Mobile/shoplistBydistance/page/" + page + "/lon/" + lon +
+            "/lat/" + lat + "/cityid/" + cityid
+          break;
+        case attr == 'byprice':
+          url = "http://stqqkj.com/index.php/Home/Mobile/shoplistByprice/page/" + page + "/cityid/" + cityid;
+          break;
+        case attr == 'byscore':
+          url = "http://stqqkj.com/index.php/Home/Mobile/shoplistByscore/page/" + page + "/cityid/" + cityid;
+          break;
+        case attr == 'byfavour':
+          url = "http://stqqkj.com/index.php/Home/Mobile/ShoplistByfavour/page/" + page + "/user_id/" + user_id;
+          break;
+        case attr == 'bysearch':
+          url = "http://stqqkj.com/index.php/Home/Mobile/ShoplistBySearch/page/" + page + "/keyword/" + keyword +
+            "/cityid/" + cityid;
+          break;
+        default:
+          break;
+      }
+      $.get(url, res => {
+        var data = JSON.parse(res);
+        if (data.data.length == 0||data.resultCode!=0) {
+          content[attr] +=`<div class="pulluptorefresh">没有更多结果</div>`
+          $(".content_wrap").html(content[attr]);
+          loadingStep = 0;
+          refresh();
+          return;
+        }
+        content[attr] += handle_result(res);
+        $(".content_wrap").html(content[attr] +`<div class="pulluptorefresh"><i class="icon iconfont icon-shangla-copy"></i> 上拉加载更多</div>`);
+        loadingStep = 0;
+        refresh();
+      });
+    }
+
     function refresh() {
       setTimeout(function () {
         myScroll.refresh();
-      }, 100);
+      }, 0);
     }
   });
 </script>

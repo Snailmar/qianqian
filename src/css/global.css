@@ -159,6 +159,7 @@ body {
 
 .pulluptorefresh {
   text-align: center;
+  color: #666; 
 }
 .top_nav {
   width: 100%;
@@ -266,7 +267,7 @@ body {
 .content {
   width: 100%;
   background: #202020;
-  padding: 0.36rem 0.28rem 0.58rem;
+  padding: 0.36rem 0.28rem 1.18rem;
   position: relative;
 }
 .content_wrap + .content_wrap {
@@ -275,7 +276,7 @@ body {
 .content_wrap a {
   display: inline-block;
   width: 100%;
-  border-radius: 5px;
+ 
   height: 4.2rem;
   overflow: hidden;
   text-align: center;
@@ -285,6 +286,7 @@ body {
 }
 .content_wrap img {
   width: 100%;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 .content_wrap li {
   margin-bottom: 0.36rem;
