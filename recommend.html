@@ -181,7 +181,7 @@
             res.data.forEach((ele) => {
                 str +=
                     ` <li>
-                        <a href="#">
+                        <a href="${ele.url}">
                             <div class='rd_top'>
                                 <img src="./src/images/shop_icon.png" alt="">
                                 <span class='rd_shopname'>${ele.shop_name}</span>
@@ -189,17 +189,18 @@
                 //计算距离
 
                 var distance = getDistance(lat, lon, ele.shop_lat, ele.shop_lon)
-                str += distance.toFixed(0) +
-                    `米</span>
+                distance=  distance>1000?(distance/1000).toFixed(1)+'千米':distance.toFixed(0)+'米'
+                str += distance +
+                    `</span>
                             </div>
                             <div class="rd_content">
-                                <img src="${ele.image}" alt="">
+                                <img src="${ele.small_image}" alt="">
                                 <div class='rdc_info'>
-                                    <span>${ele.goods_name}</span>
+                                    <span>${ele.title}</span>
                                     <strong class="rd_newprice">￥${ele.price}</strong>
                                     <i class="rd_oldprice">￥${ele.cost_price}</i>
                                 </div>
-                                <div class="rd_buyBtn" data-id="${ele.shop_id}">购买</div>
+                                <div class="rd_buyBtn" data-id="${ele.cate_id}">购买</div>
                             </div>
                         </a>
                     </li>`
@@ -260,8 +261,7 @@
                     cityid;
             }
             if (attr == 'str_discount') {
-                url = 'http://stqqkj.com/index.php/Home/Mobile/GetShopActivity/page/' + page + '/cityid/' +
-                    cityid
+                url = 'http://stqqkj.com/index.php/Home/Mobile/GetShopActivity/page/' + page + '/cityid/' +cityid
             }
             $.get(url, res => {
                 var res = JSON.parse(res);
@@ -272,10 +272,15 @@
                     refresh();
                     return;
                 }
+                if(attr=='str_discount'){
+                    content[attr] += handleResult2(res);
+
+                }else if(attr=='str_rank'){
                 content[attr] += handleResult(res);
+                }
                 ele.html(content[attr] +
                     `<div class="pulluptorefresh">
-                上拉加载更多
+                        <i class="icon iconfont icon-shangla-copy"></i>上拉加载更多
             </div>`
                 );
                 loadingStep = 0;

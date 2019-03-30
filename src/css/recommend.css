@@ -269,6 +269,8 @@ margin-bottom: 0.2rem;
     margin-left: auto;
     color: #929292;
     font-size: 0.24rem;
+    width: 2rem;
+    display: block;
 }
 .rd_top .rd_location >i{
 font-size: 0.24rem;

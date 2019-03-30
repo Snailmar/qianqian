@@ -259,22 +259,30 @@
       }
     });
 
-    function hadle_menu_click(attr) {
-      if(attr=='bydistance'){
-      $(".content_wrap").html(content[attr] +
+    function hadle_menu_click_listcontent(content_list) {
+  $(".content_wrap").html(content_list +
             `<div class="pulluptorefresh">
                 <i class="icon iconfont icon-shangla-copy"></i> 上拉加载更多
             </div>`);
-            refresh();
-            return;
-    }
-    if (content[attr].length > 2) {
-            $(".content_wrap").html(content[attr] +
-              `<div class="pulluptorefresh">
-                <i class="icon iconfont icon-shangla-copy"></i> 上拉加载更多
+            if($(".content_wrap").children('li').length%page_size>0){
+              $(".content_wrap").html(content_list +
+            `<div class="pulluptorefresh">
+                没有更多结果
             </div>`);
             refresh();
             return;
+            }
+            refresh();
+}
+ 
+    function hadle_menu_click(attr) {
+      if(attr=='bydistance'){
+        hadle_menu_click_listcontent(content[attr])
+            return;
+    }
+    if (content[attr].length > 2) {
+        hadle_menu_click_listcontent(content[attr])      
+                   return;
           }
           $(".content_wrap").html("");
           var url='';
@@ -302,11 +310,8 @@
           $.get(url,
             res => {
               content[attr] += handle_result(res);
-              $(".content_wrap").html(content[attr] +
-                `<div class="pulluptorefresh">
-                <i class="icon iconfont icon-shangla-copy"></i> 上拉加载更多
-            </div>`);
-              refresh();
+        hadle_menu_click_listcontent(content[attr])
+             
             }
           );
   
@@ -433,8 +438,7 @@
       var allitems = $(".content_wrap").children('li').length
       page = parseInt(allitems / page_size);
       if (allitems % page_size > 0) {
-        content[attr] +=`<div class="pulluptorefresh">没有更多结果</div>`
-        $(".content_wrap").html(content[attr])
+        $(".content_wrap").html(content[attr] +`<div class="pulluptorefresh">没有更多结果</div>`)
         loadingStep = 0;
         refresh();
         return;
@@ -465,8 +469,8 @@
       $.get(url, res => {
         var data = JSON.parse(res);
         if (data.data.length == 0||data.resultCode!=0) {
-          content[attr] +=`<div class="pulluptorefresh">没有更多结果</div>`
-          $(".content_wrap").html(content[attr]);
+          
+          $(".content_wrap").html(content[attr] +`<div class="pulluptorefresh">没有更多结果</div>`);
           loadingStep = 0;
           refresh();
           return;
